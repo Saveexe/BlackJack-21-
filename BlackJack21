@@ -1,0 +1,56 @@
+from tkinter import*
+from random import*
+
+karti21 = [2,3,4,5,6,7,8,9,10, "Дама", "Валет", "Король", "Туз"] * 4
+shuffle(karti21)
+
+count = 0 
+
+def vzatkartu():
+    global count, karti21   
+    karta = karti21.pop() 
+
+    if karta== "Валет" or karta== "Дама" or karta=="Король":  
+        karta=10
+
+    if karta=="Туз":
+        karta=11
+
+    count += karta
+
+    if count > 21: 
+        text3["text"] = "Вы проиграли" 
+        text2["text"] = str(count) + " очков" 
+    else:  
+        text2["text"] = "У вас " + str(count)+ "очков" 
+
+def konets():
+    global count
+
+    if count == 21:
+        text3["text"] = "Поздравляем, у вас 21!"
+
+    if count < 21:
+        text3["text"] = "У вас" + str(count) + " очков"
+        
+ 
+root = Tk()
+root.geometry("350x150")
+
+text1 = Label(root, text="BlackJack(21)", fg="black")
+text1.place(x=10,y=0)
+
+text2 = Label(root, text="0 очков", fg="green")
+text2.place(x=170, y=60)
+
+but1 = Button(root, width="15", text="Взять карту", command = vzatkartu)
+but1.place(x=5, y=60)
+
+but1 = Button(root, width= "15", text="Закончить", command = konets)
+but1.place(x=5,y=90)
+
+text3 = Label(root, text="Результат игры", fg="red")
+text3.place(x=170,y=90)
+
+root.mainloop()
+
